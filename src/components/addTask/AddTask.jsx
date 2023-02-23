@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-// import axios from "axios";
+import axios from "axios";
 
 const AddTask = ({ getTask }) => {
   const [task, setTask] = useState("");
@@ -10,7 +10,18 @@ const AddTask = ({ getTask }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const newTask = { task, date };
-    console.log("geldi mi lann:", newTask);
+    // console.log("geldi mi lann:", newTask);
+    addNewTask(newTask);
+    setTask("");
+    setDate("");
+  };
+
+  const addNewTask = async (newTask) => {
+    const url = "https://6351820edfe45bbd55c21b4d.mockapi.io/api/tasks";
+    try {
+      await axios.post(url, newTask);
+    } catch (error) {}
+    getTask();
   };
 
   return (
@@ -27,8 +38,7 @@ const AddTask = ({ getTask }) => {
 
         <Form.Group className="mb-3" controlId="formBasicPassword">
           <Form.Label>Date</Form.Label>
-          <Form.Control type="date"
-          onChange={(e) => setDate(e.target.value)} />
+          <Form.Control type="date" onChange={(e) => setDate(e.target.value)} />
         </Form.Group>
         <div className="text-center">
           <Button variant="primary w-50 " type="submit" className="bg-dark">
