@@ -1,5 +1,5 @@
 function App() {
-  return <div>Learn React</div>;
+  return <div>Learn Reacfeet</div>;
 }
 
 export default App;
